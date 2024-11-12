@@ -15,7 +15,7 @@ export function Header() {
     setHideProfile(!hideProfile);
   };
   return (
-    <header className="header bg-[--headerColor] h-14 w-full shadow-sm flex items-center justify-center">
+    <header className="header bg-[--headerColor] h-14 w-full shadow-md flex items-center justify-center">
       <div className="flex items-center justify-between w-[70%]">
         <div>
           <Image src={"/images/logo.png"} alt="logo" height={50} width={50} />
@@ -43,10 +43,10 @@ export function Header() {
           </Link>
           <div
             onClick={hideProfileHandler}
-            className="flex flex-col justify-center items-center cursor-pointer"
+            className="flex flex-col justify-center items-center"
           >
-            <CgProfile className="text-lg" />
-            <h5>Profile</h5>
+            <CgProfile className="text-lg cursor-pointer" />
+            <h5 className="cursor-pointer">Profile</h5>
             {hideProfile && <Profile />}
           </div>
         </div>
