@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export default function Profile() {
   return (
-    <div className="bg-[--headerColor] w-64 h-40 shadow-md top-16 absolute right-52">
+    <div className=" w-64 h-40 shadow-sm shadow-gray-600 top-16 absolute right-52">
       <div className="p-4 flex flex-col gap-4">
         <div className="userimageandname flex items-center gap-4">
           <Image

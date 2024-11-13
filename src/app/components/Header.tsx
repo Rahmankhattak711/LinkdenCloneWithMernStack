@@ -9,13 +9,13 @@ import Link from "next/link";
 import Profile from "../profile/page";
 
 export function Header() {
-  const [hideProfile, setHideProfile] = React.useState(false);
+  const [hideProfile, setHideProfile] = React.useState(false); 
 
   const hideProfileHandler = () => {
     setHideProfile(!hideProfile);
   };
   return (
-    <header className="header bg-[--headerColor] h-14 w-full shadow-md flex items-center justify-center">
+    <header className="header h-14 w-full shadow-sm shadow-gray-600 flex items-center justify-center">
       <div className="flex items-center justify-between w-[70%]">
         <div>
           <Image src={"/images/logo.png"} alt="logo" height={50} width={50} />
