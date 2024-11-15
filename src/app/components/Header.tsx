@@ -16,7 +16,7 @@ export function Header() {
   };
   return (
     <header className="header h-14 w-full shadow-sm shadow-gray-600 flex items-center justify-center">
-      <div className="flex items-center justify-between w-[70%]">
+      <div className="flex items-center justify-between w-[80%]">
         <div>
           <Image src={"/images/logo.png"} alt="logo" height={50} width={50} />
         </div>

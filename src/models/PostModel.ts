@@ -1,26 +1,27 @@
-import mongoose from "mongoose";
+import mongoose, { Document, Model, Schema } from "mongoose";
 
 interface PostInterface extends Document {
   content: string;
-  image: string;
-  video: string;
+  image?: string; 
+  video?: string; 
 }
 
-const postSchema = new mongoose.Schema({
+const postSchema: Schema<PostInterface> = new mongoose.Schema({
   content: {
     type: String,
     required: true,
   },
   image: {
     type: String,
+    required: false,
   },
   video: {
     type: String,
+    required: false,
   },
 });
 
-const Post =
-  (mongoose.models.PostInterface as mongoose.Model<PostInterface>) ||
-  mongoose.model<PostInterface>("Post", postSchema);
+const Post: Model<PostInterface> =
+  mongoose.models.Post || mongoose.model<PostInterface>("Post", postSchema);
 
 export default Post;

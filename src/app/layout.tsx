@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import { Header } from "./components/Header";
+import { Toaster } from "react-hot-toast";
+import Providers from "./provider";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -30,7 +32,12 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <Header />
-        {children}
+
+        <Toaster position="top-right" reverseOrder={false} />
+        <Providers> 
+          {children}
+
+        </Providers>
       </body>
     </html>
   );
