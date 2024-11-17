@@ -41,7 +41,7 @@ export async function POST(req: NextRequest) {
   } catch (error) {
     return NextResponse.json({
       sucess: false,
-      message: "User creation failed!",
+      message: "Internal Server Error!",
     });
   }
 }

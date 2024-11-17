@@ -4,15 +4,14 @@ import EmojiPicker, { EmojiClickData } from "emoji-picker-react";
 import { Button } from "../components/buttons/Button";
 import InputFailed from "../components/InputFailed";
 import axios from "axios";
-import toast from 'react-hot-toast';
+import toast from "react-hot-toast";
 import { MdClose } from "react-icons/md";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 
 const PostPage: React.FC = () => {
   const [isPostOpen, setIsPostOpen] = useState<boolean>(false);
   const [isEmojiPickerOpen, setIsEmojiPickerOpen] = useState<boolean>(false);
   const [text, setText] = useState<string>("");
-  const queryClient = useQueryClient();
 
   const togglePostInput = (): void => {
     setIsPostOpen(!isPostOpen);
@@ -26,27 +25,22 @@ const PostPage: React.FC = () => {
     setText((prevText) => prevText + emojiObject.emoji);
   };
 
-  const { mutate: createPost, isLoading } = useMutation({
-    mutationFn: () => axios.post("/api/post", { content: text }),
-    onSuccess: (data) => {
-      toast.success("Post created successfully!");
-      setText(""); 
-      setIsPostOpen(false); 
-      queryClient.invalidateQueries(['posts']); 
-    },
-    onError: () => {
-      toast.error("Post creation failed");
-    },
-  });
 
-  if (isLoading) {
-    return <div>Loading...</div>;
+  const {  isError, mutate: datafunction, error } = useMutation({
+    mutationFn: async () => {
+      const response = await axios.post("/api/post", { content: text });
+      return response.data;
+    },
+  })
+
+  if (isError) {
+    return <div>Error...</div>;
   }
 
   const handleSubmit = (e: FormEvent): void => {
     e.preventDefault();
     if (text.trim()) {
-      createPost();
+      datafunction();
     } else {
       toast.error("Post content cannot be empty");
     }
@@ -95,10 +89,10 @@ const PostPage: React.FC = () => {
                     onClick={togglePostInput}
                     className="absolute top-5 right-5 border-gray-600 border-[1px] p-1"
                   >
-                    <MdClose/>
+                    <MdClose />
                   </div>
-                  <Button type="submit" variant="outline" disabled={isLoading}>
-                    {isLoading ? "Posting..." : "Post"}
+                  <Button type="submit" variant="outline">
+                    Post
                   </Button>
                 </div>
               </form>

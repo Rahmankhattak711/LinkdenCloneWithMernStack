@@ -7,6 +7,7 @@ export default function FeedPage() {
   const { data, isLoading, isError } = useQuery({
     queryKey: ["data"],
     queryFn: getData,
+    // refetchInterval: 1000,
   });
 
   if (isLoading) {
@@ -25,12 +26,17 @@ export default function FeedPage() {
         <PostPage />
 
         {posts.map((post: any, index: number) => (
-          <div key={index}>
-            <p>{post.content}</p>
+          <div className="w-[55%]  mt-4">
+            <div
+              key={index}
+              className="rounded-md border-gray-600 border-[1px]"
+            >
+              <p className="p-4">{post.content}</p>
+              <img src={post?.image} alt="post" className="w-full h-28" />
+            </div>
           </div>
         ))}
       </div>
     </div>
   );
 }
-

@@ -6,20 +6,23 @@ interface PostInterface extends Document {
   video?: string; 
 }
 
-const postSchema: Schema<PostInterface> = new mongoose.Schema({
-  content: {
-    type: String,
-    required: true,
+const postSchema: Schema<PostInterface> = new mongoose.Schema(
+  {
+    content: {
+      type: String,
+      required: true
+    },
+    image: {
+      type: String,
+      required: false, 
+    },
+    video: {
+      type: String,
+      required: false,
+    },
   },
-  image: {
-    type: String,
-    required: false,
-  },
-  video: {
-    type: String,
-    required: false,
-  },
-});
+  { timestamps: true }
+);
 
 const Post: Model<PostInterface> =
   mongoose.models.Post || mongoose.model<PostInterface>("Post", postSchema);

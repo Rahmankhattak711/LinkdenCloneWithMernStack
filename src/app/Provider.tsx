@@ -10,6 +10,11 @@ function makeQueryClient() {
   return new QueryClient({
     defaultOptions: {
       queries: {
+        refetchOnWindowFocus: false,
+
+        refetchOnMount: false,
+
+        
         staleTime: 60 * 1000,
       },
     },
