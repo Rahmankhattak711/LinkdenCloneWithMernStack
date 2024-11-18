@@ -8,7 +8,7 @@ export default function Profile() {
       <div className="p-4 flex flex-col gap-4">
         <div className="userimageandname flex items-center gap-4">
           <Image
-            src="/images/user.jpeg"
+            src="/images/user.png"
             alt="user"
             height={50}
             width={50}

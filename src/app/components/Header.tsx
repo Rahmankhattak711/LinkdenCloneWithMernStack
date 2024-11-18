@@ -45,7 +45,9 @@ export function Header() {
             onClick={hideProfileHandler}
             className="flex flex-col justify-center items-center"
           >
-            <CgProfile className="text-lg cursor-pointer" />
+            {/* <CgProfile className="text-lg cursor-pointer" /> */}
+            <img
+              src="/images/user.png" className="text-lg cursor-pointer w-5 "/>
             <h5 className="cursor-pointer">Profile</h5>
             {hideProfile && <Profile />}
           </div>

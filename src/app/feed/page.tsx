@@ -2,16 +2,21 @@
 import PostPage from "../post/page";
 import { useQuery } from "@tanstack/react-query";
 import { getData } from "../utils/api";
+import { LuLoader, LuLoader2 } from "react-icons/lu";
 
 export default function FeedPage() {
   const { data, isLoading, isError } = useQuery({
     queryKey: ["data"],
     queryFn: getData,
-    // refetchInterval: 1000,
+    refetchInterval: 1000,
   });
 
   if (isLoading) {
-    return <h1>Loading posts...</h1>;
+    return (
+      <h1>
+        <LuLoader2 className="animate-spin text-4xl absolute top-1/2 left-1/2 right-1/2" />
+      </h1>
+    );
   }
 
   if (isError) {

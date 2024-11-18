@@ -7,6 +7,7 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { MdClose } from "react-icons/md";
 import { useMutation, useQuery } from "@tanstack/react-query";
+import Image from "next/image";
 
 const PostPage: React.FC = () => {
   const [isPostOpen, setIsPostOpen] = useState<boolean>(false);
@@ -48,7 +49,14 @@ const PostPage: React.FC = () => {
 
   return (
     <div className="relative w-full flex justify-center items-center">
-      <div className="w-[55%]">
+      <div className="w-[55%] flex gap-4">
+      <Image
+            src="/images/user.png"
+            alt="user"
+            height={50}
+            width={50}
+            className="rounded-full border-[1px] p-1 h-[60px] w-[60px]"
+          />
         <InputFailed onClick={togglePostInput} />
 
         {isPostOpen && (
@@ -92,7 +100,7 @@ const PostPage: React.FC = () => {
                     <MdClose />
                   </div>
                   <Button type="submit" variant="outline">
-                    Post
+                    Post 
                   </Button>
                 </div>
               </form>
