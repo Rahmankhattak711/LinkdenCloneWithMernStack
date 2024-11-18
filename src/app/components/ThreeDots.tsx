@@ -21,13 +21,13 @@ export default function ThreeDots({ postId }: { postId: string }) {
   // }
 
   return (
-    <div className="relative">
+    <div className="relative ">
       <BsThreeDots
         onClick={handleShowDot}
         className="text-2xl cursor-pointer"
       />
       {dotShow && (
-        <div className="h-auto p-4 absolute w-36 bg-black border-[1px] rounded-md border-gray-600 right-0">
+        <div className="h-auto px-3 py-2 absolute w-56 bg-black border-[1px] rounded-md border-gray-600 right-0">
           <h1
             className="cursor-pointer"
           >

@@ -12,7 +12,7 @@ export default function Profile() {
             alt="user"
             height={50}
             width={50}
-            className="rounded-full border-[1px] p-1 h-[60px] w-[60px]"
+            className="rounded-full border-[1px] h-[60px] w-[60px]"
           />
           <h4 className="font-medium">Rahman khattak</h4>
         </div>

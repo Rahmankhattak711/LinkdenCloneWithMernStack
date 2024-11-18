@@ -13,6 +13,8 @@ const PostPage: React.FC = () => {
   const [isPostOpen, setIsPostOpen] = useState<boolean>(false);
   const [isEmojiPickerOpen, setIsEmojiPickerOpen] = useState<boolean>(false);
   const [text, setText] = useState<string>("");
+  const [image, setImage] = useState<string>("");
+  const [video, setVideo] = useState<string>("");
 
   const togglePostInput = (): void => {
     setIsPostOpen(!isPostOpen);
@@ -32,7 +34,11 @@ const PostPage: React.FC = () => {
     error,
   } = useMutation({
     mutationFn: async () => {
-      const response = await axios.post("/api/post", { content: text });
+      const response = await axios.post("/api/post", {
+        content: text,
+        image: image,
+        video: video,
+      });
       return response.data;
     },
   });
@@ -51,16 +57,20 @@ const PostPage: React.FC = () => {
   };
 
   return (
-    <div className="relative w-full flex justify-center items-center">
-      <div className="w-[55%] flex gap-4">
+    <div className="relative  w-full flex justify-center items-center">
+      <div className="w-[55%] bg-[#1B1F23] flex gap-4">
         <Image
           src="/images/user.png"
           alt="user"
           height={50}
           width={50}
-          className="rounded-full border-[1px] p-1 h-[60px] w-[60px]"
+          className="rounded-full border-[1px] h-[55px] w-[55px]"
         />
-        <InputFailed onClick={togglePostInput} />
+        <InputFailed
+          onClick={togglePostInput}
+          type="text"
+          placeholder="What's on your mind?"
+        />
 
         {isPostOpen && (
           <>
@@ -74,14 +84,14 @@ const PostPage: React.FC = () => {
             <div className="fixed inset-0 flex justify-center items-start top-10 z-50">
               <form
                 onSubmit={handleSubmit}
-                className="w-[50%] h-auto bg-black border-gray-600 border-[1px] rounded-md relative p-5"
+                className="w-[50%] h-auto bg-black border-gray-600 border-[1px] rounded-md relative p-5 "
               >
                 <Image
                   src="/images/user.png"
                   alt="user"
                   height={50}
                   width={50}
-                  className="rounded-full border-[1px] p-1 h-[60px] w-[60px]"
+                  className="rounded-full border-[1px] h-[55px] w-[55px]"
                 />
                 <textarea
                   value={text}
@@ -90,8 +100,26 @@ const PostPage: React.FC = () => {
                   className="w-full h-28 pt-4 shadow-md bg-black rounded-lg resize-none focus:outline-none"
                 ></textarea>
 
+                <InputFailed
+                  value={image}
+                  onChange={(e) => setImage(e.target.value)}
+                  type="text"
+                  placeholder="Add Image Url"
+                  className="border-[1px] border-gray-600 rounded-md mb-4"
+                />
+
+                <InputFailed
+                  value={video}
+                  onChange={(e) => setVideo(e.target.value)}
+                  type="text"
+                  placeholder="Add Video Url"
+                  className="border-[1px] border-gray-600 rounded-md mb-4"
+                />
+
                 <div className="flex gap-4 justify-between border-t-[1px] border-gray-600 pt-3 bottom-5">
-                  <Button variant="secondary" onClick={toggleEmojiPicker}>Emojes 🥰</Button>
+                  <Button variant="secondary" onClick={toggleEmojiPicker}>
+                    Emojes 🥰
+                  </Button>
 
                   {isEmojiPickerOpen && (
                     <div className="absolute bottom-20 left-5">

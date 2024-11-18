@@ -28,8 +28,8 @@ export default function FeedPage() {
   const posts = data?.data || [];
 
   return (
-    <div className="header h-auto w-full flex items-center justify-center">
-      <div className="flex items-center flex-col justify-between w-[80%] mt-6">
+    <div className="h-auto w-full flex items-center justify-center">
+      <div className="flex items-center flex-col justify-between w-[80%] mt-5">
         <PostPage />
 
         {posts.map((post: any, index: number) => (
@@ -42,7 +42,7 @@ export default function FeedPage() {
                     alt="user"
                     height={50}
                     width={50}
-                    className="rounded-full border-[1px] p-1 h-[60px] w-[60px]"
+                    className="rounded-full border-[1px] h-[50px] w-[50px]"
                   />
 
                   <span>
@@ -60,7 +60,18 @@ export default function FeedPage() {
                 <img
                   src={post.image}
                   alt="post"
-                  className="w-full h-28 object-cover"
+                  className="w-full h-auto object-cover"
+                />
+              )}
+
+              {post.video && (
+                <video
+                  src={post.video}
+                  controls
+                  autoPlay
+                  loop
+                  typeof="video/mp4"
+                  className="w-full h-auto object-cover"
                 />
               )}
             </div>
