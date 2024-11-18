@@ -1,5 +1,5 @@
 export interface BaseButtonProps {
-    variant?: "outline" ;
+    variant?: "outline" | "secondary";
     size?: "lg" | "md" | "sm" | "xs";
     icon?: React.FC<React.SVGProps<SVGSVGElement>>;
     width?: string;

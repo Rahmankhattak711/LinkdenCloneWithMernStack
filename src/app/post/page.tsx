@@ -26,13 +26,16 @@ const PostPage: React.FC = () => {
     setText((prevText) => prevText + emojiObject.emoji);
   };
 
-
-  const {  isError, mutate: datafunction, error } = useMutation({
+  const {
+    isError,
+    mutate: datafunction,
+    error,
+  } = useMutation({
     mutationFn: async () => {
       const response = await axios.post("/api/post", { content: text });
       return response.data;
     },
-  })
+  });
 
   if (isError) {
     return <div>Error...</div>;
@@ -50,13 +53,13 @@ const PostPage: React.FC = () => {
   return (
     <div className="relative w-full flex justify-center items-center">
       <div className="w-[55%] flex gap-4">
-      <Image
-            src="/images/user.png"
-            alt="user"
-            height={50}
-            width={50}
-            className="rounded-full border-[1px] p-1 h-[60px] w-[60px]"
-          />
+        <Image
+          src="/images/user.png"
+          alt="user"
+          height={50}
+          width={50}
+          className="rounded-full border-[1px] p-1 h-[60px] w-[60px]"
+        />
         <InputFailed onClick={togglePostInput} />
 
         {isPostOpen && (
@@ -71,17 +74,24 @@ const PostPage: React.FC = () => {
             <div className="fixed inset-0 flex justify-center items-start top-10 z-50">
               <form
                 onSubmit={handleSubmit}
-                className="w-[50%] h-[60%] bg-black border-gray-600 border-[1px] rounded-md relative p-5"
+                className="w-[50%] h-auto bg-black border-gray-600 border-[1px] rounded-md relative p-5"
               >
+                <Image
+                  src="/images/user.png"
+                  alt="user"
+                  height={50}
+                  width={50}
+                  className="rounded-full border-[1px] p-1 h-[60px] w-[60px]"
+                />
                 <textarea
                   value={text}
                   onChange={(e) => setText(e.target.value)}
                   placeholder="Write something..."
-                  className="w-full h-72 p-4 shadow-md bg-black rounded-lg resize-none focus:outline-none"
+                  className="w-full h-28 pt-4 shadow-md bg-black rounded-lg resize-none focus:outline-none"
                 ></textarea>
 
-                <div className="flex gap-4 justify-between border-t-[1px] border-gray-600 pt-3">
-                  <Button onClick={toggleEmojiPicker}>🥰</Button>
+                <div className="flex gap-4 justify-between border-t-[1px] border-gray-600 pt-3 bottom-5">
+                  <Button variant="secondary" onClick={toggleEmojiPicker}>Emojes 🥰</Button>
 
                   {isEmojiPickerOpen && (
                     <div className="absolute bottom-20 left-5">
@@ -95,12 +105,12 @@ const PostPage: React.FC = () => {
 
                   <div
                     onClick={togglePostInput}
-                    className="absolute top-5 right-5 border-gray-600 border-[1px] p-1"
+                    className="absolute top-5 right-5 rounded-full border-gray-600 border-[1px] p-1"
                   >
-                    <MdClose />
+                    <MdClose className="text-1xl" />
                   </div>
-                  <Button type="submit" variant="outline">
-                    Post 
+                  <Button type="submit" variant="secondary">
+                    Post
                   </Button>
                 </div>
               </form>

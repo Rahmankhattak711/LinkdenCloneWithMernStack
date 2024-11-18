@@ -2,7 +2,9 @@
 import PostPage from "../post/page";
 import { useQuery } from "@tanstack/react-query";
 import { getData } from "../utils/api";
-import { LuLoader, LuLoader2 } from "react-icons/lu";
+import Loader from "../components/Loader";
+import Image from "next/image";
+import ThreeDots from "../components/ThreeDots";
 
 export default function FeedPage() {
   const { data, isLoading, isError } = useQuery({
@@ -14,7 +16,7 @@ export default function FeedPage() {
   if (isLoading) {
     return (
       <h1>
-        <LuLoader2 className="animate-spin text-4xl absolute top-1/2 left-1/2 right-1/2" />
+        <Loader />
       </h1>
     );
   }
@@ -31,13 +33,36 @@ export default function FeedPage() {
         <PostPage />
 
         {posts.map((post: any, index: number) => (
-          <div className="w-[55%]  mt-4">
-            <div
-              key={index}
-              className="rounded-md border-gray-600 border-[1px]"
-            >
-              <p className="p-4">{post.content}</p>
-              <img src={post?.image} alt="post" className="w-full h-28" />
+          <div key={index} className="w-[55%] mt-4">
+            <div className="rounded-md bg-[#1B1F23] px-6 py-3 flex flex-col gap-4">
+              <div className="flex items-center justify-between">
+                <div className="flex gap-4 items-center">
+                  <Image
+                    src="/images/user.png"
+                    alt="user"
+                    height={50}
+                    width={50}
+                    className="rounded-full border-[1px] p-1 h-[60px] w-[60px]"
+                  />
+
+                  <span>
+                    <h1>Rahman Ullah</h1>
+                    <p>Full Stack Developer</p>
+                  </span>
+                </div>
+
+                <div>
+                  <ThreeDots postId={post._id} />
+                </div>
+              </div>
+              <p>{post.content}</p>
+              {post.image && (
+                <img
+                  src={post.image}
+                  alt="post"
+                  className="w-full h-28 object-cover"
+                />
+              )}
             </div>
           </div>
         ))}

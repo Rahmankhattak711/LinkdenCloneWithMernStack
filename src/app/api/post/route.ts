@@ -3,48 +3,69 @@ import Post from "@/models/PostModel";
 import { NextResponse, NextRequest } from "next/server";
 
 export async function POST(req: NextRequest) {
-    connectDB();
+  await connectDB();
 
-    try {
-      const { content, image, video } = await req.json();
-  
-      const newPost = new Post({
-        content,
-        image,
-        video,
-      });
-  
-      await newPost.save();
-  
-      return NextResponse.json({
-        sucess: true,
-        message: "Post created successfully!",
-      });
-    } catch (error) {
-      console.log(error);
-      return NextResponse.json({
-        sucess: false,
-        message: "Post creation failed!",
-      });
+  try {
+    const { content, image, video } = await req.json();
+
+    if (!content) {
+      return NextResponse.json(
+        { success: false, message: "Content is required!" },
+        { status: 400 }
+      );
     }
+
+    const newPost = new Post({ content, image, video });
+    await newPost.save();
+
+    return NextResponse.json(
+      { success: true, message: "Post created successfully!", data: newPost },
+      { status: 201 }
+    );
+  } catch (error) {
+    console.error("Error creating post:", error);
+    return NextResponse.json(
+      { success: false, message: "Post creation failed!" },
+      { status: 500 }
+    );
   }
+}
 
+export async function GET(req: NextRequest) {
+  await connectDB();
 
-  export async function GET(req: NextRequest) {
-    connectDB();
+  try {
+    const posts = await Post.find().sort({ createdAt: -1 });
 
-    try {
-      const posts = await Post.find();
-  
-      return NextResponse.json({
-        sucess: true,
-        data: posts,
-      });
-    } catch (error) {
-      console.log(error);
-      return NextResponse.json({
-        sucess: false,
-        message: "Post creation failed!",
-      });
-    }
+    return NextResponse.json(
+      { success: true, data: posts },
+      { status: 200 }
+    );
+  } catch (error) {
+    console.error("Error fetching posts:", error);
+    return NextResponse.json(
+      { success: false, message: "Failed to fetch posts!" },
+      { status: 500 }
+    );
   }
+}
+
+export async function DELETE(req: NextRequest) {
+  await connectDB();
+
+  try {
+    const { id } = await req.json();
+    const deletedPost = await Post.findByIdAndDelete(id);
+
+    return NextResponse.json(
+      { success: true, message: "Post deleted successfully!" },
+      { status: 200 }
+    );
+  } catch (error) {
+    console.error("Error deleting post:", error);
+    return NextResponse.json(
+      { success: false, message: "Post deletion failed!" },
+      { status: 500 }
+    );
+  }
+}

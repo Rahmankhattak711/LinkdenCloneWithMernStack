@@ -31,6 +31,7 @@ export const BaseButton: React.FC<BaseButtonProps> = ({
 
   const variantClasses = {
     outline: `border-2 border-[#388FE9] text-[#388FE9] rounded-full ${textColor} ${width}`,
+    secondary: `bg-gray-600 text-white rounded-full ${textColor} ${width}`,
   };
 
   const sizeClasses = props.children
