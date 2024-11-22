@@ -1,29 +1,20 @@
 "use client";
 import PostPage from "../post/page";
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { getData, likePost } from "../utils/api";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { getData } from "../utils/api";
 import Loader from "../components/Loader";
 import Image from "next/image";
 import ThreeDots from "../components/ThreeDots";
+import axios from "axios";
+import toast from "react-hot-toast";
+import Like from "../components/Like";
 
 export default function FeedPage() {
-  const queryClient = useQueryClient();
-
-  // Fetch posts
   const { data, isLoading, isError } = useQuery({
     queryKey: ["data"],
     queryFn: getData,
     refetchInterval: 1000,
   });
-
-  // Like post mutation
-  const { mutate: handleLike, isLoading: isLiking } = useMutation({
-    mutationFn: likePost, // Explicitly define the mutation function
-    onSuccess: () => {
-      queryClient.invalidateQueries(["data"]); // Refresh posts after liking
-    },
-  });
-  
 
   if (isLoading) {
     return (
@@ -56,15 +47,13 @@ export default function FeedPage() {
                     width={50}
                     className="rounded-full border-[1px] h-[50px] w-[50px]"
                   />
-
                   <span>
                     <h1>Rahman Ullah</h1>
                     <p>Full Stack Developer</p>
                   </span>
                 </div>
-
                 <div>
-                  <ThreeDots  />
+                  <ThreeDots id={post._id} />
                 </div>
               </div>
               <p>{post.content}</p>
@@ -89,13 +78,7 @@ export default function FeedPage() {
 
               {/* Like Button */}
               <div className="flex items-center mt-2">
-                <button
-                  onClick={() => handleLike(post._id)}
-                  className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600"
-                >
-                  {isLiking ? "Liking..." : "Like"}
-                </button>
-                <span className="ml-2">{post.likes || 0} Likes</span>
+                <Like id={post._id} />
               </div>
             </div>
           </div>

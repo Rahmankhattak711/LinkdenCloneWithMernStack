@@ -54,17 +54,31 @@ export async function DELETE(req: NextRequest) {
   await connectDB();
 
   try {
-    const { id } = await req.json();
+    const id = req.nextUrl.pathname.split('/').pop();
+
+    if (!id) {
+      return NextResponse.json(
+        { success: false, message: 'Post ID is required!' },
+        { status: 400 }
+      );
+    }
+
     const deletedPost = await Post.findByIdAndDelete(id);
 
+    if (!deletedPost) {
+      return NextResponse.json(
+        { success: false, message: 'Post not found!' },
+        { status: 404 }
+      );
+    }
+
     return NextResponse.json(
-      { success: true, message: "Post deleted successfully!" },
+      { success: true, message: 'Post deleted successfully!' },
       { status: 200 }
     );
   } catch (error) {
-    console.error("Error deleting post:", error);
     return NextResponse.json(
-      { success: false, message: "Post deletion failed!" },
+      { success: false, message: 'Post deletion failed!' },
       { status: 500 }
     );
   }

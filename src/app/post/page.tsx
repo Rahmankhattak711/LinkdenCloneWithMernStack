@@ -28,10 +28,7 @@ const PostPage: React.FC = () => {
     setText((prevText) => prevText + emojiObject.emoji);
   };
 
-  const {
-    isError,
-    mutate: datafunction,
-  } = useMutation({
+  const { isError, mutate: datafunction } = useMutation({
     mutationFn: async () => {
       const response = await axios.post("/api/post", {
         content: text,
@@ -39,7 +36,7 @@ const PostPage: React.FC = () => {
         video: video,
       });
       if (response) {
-        toast.success("Post created successfully!");
+        toast.success(response.data.message);
       }
       setText("");
       setImage("");
@@ -50,7 +47,7 @@ const PostPage: React.FC = () => {
   });
 
   if (isError) {
-    return <div>Error...</div>;
+    return toast.error("Failed to create post");
   }
 
   const handleSubmit = (e: FormEvent): void => {
