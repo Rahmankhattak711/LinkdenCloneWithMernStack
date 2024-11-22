@@ -31,7 +31,6 @@ const PostPage: React.FC = () => {
   const {
     isError,
     mutate: datafunction,
-    error,
   } = useMutation({
     mutationFn: async () => {
       const response = await axios.post("/api/post", {
@@ -39,6 +38,13 @@ const PostPage: React.FC = () => {
         image: image,
         video: video,
       });
+      if (response) {
+        toast.success("Post created successfully!");
+      }
+      setText("");
+      setImage("");
+      setVideo("");
+      setIsPostOpen(false);
       return response.data;
     },
   });

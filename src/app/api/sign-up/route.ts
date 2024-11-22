@@ -8,9 +8,10 @@ export async function POST(req: NextRequest) {
 
   try {
     const { name, email, password } = await req.json();
+
     if (!name || !email || !password) {
       return NextResponse.json({
-        sucess: false,
+        success: false,
         message: "All fields are required!",
       });
     }
@@ -19,7 +20,7 @@ export async function POST(req: NextRequest) {
 
     if (user) {
       return NextResponse.json({
-        sucess: false,
+        success: false,
         message: "User already exists!",
       });
     }
@@ -35,12 +36,14 @@ export async function POST(req: NextRequest) {
     await newUser.save();
 
     return NextResponse.json({
-      sucess: true,
-      message: newUser,
+      success: true,
+      message: "User created successfully!",
+      userId: newUser._id, 
     });
   } catch (error) {
+    console.error("Error creating user:", error);
     return NextResponse.json({
-      sucess: false,
+      success: false,
       message: "Internal Server Error!",
     });
   }

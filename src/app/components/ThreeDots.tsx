@@ -1,10 +1,10 @@
 import React from "react";
 import { BsThreeDots } from "react-icons/bs";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { deletePost } from "../utils/api";
-import Loader from "./Loader";
-
-export default function ThreeDots({ postId }: { postId: string }) {
+// import { useMutation, useQueryClient } from "@tanstack/react-query";
+// import { deletePost } from "../utils/api";
+// import Loader from "./Loader";
+// { postId }: { postId: string }
+export default function ThreeDots() {
   const [dotShow, setDotShow] = React.useState(false);
   // const queryClient = useQueryClient();
 

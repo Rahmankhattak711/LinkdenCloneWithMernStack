@@ -1,17 +1,29 @@
 "use client";
 import PostPage from "../post/page";
-import { useQuery } from "@tanstack/react-query";
-import { getData } from "../utils/api";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { getData, likePost } from "../utils/api";
 import Loader from "../components/Loader";
 import Image from "next/image";
 import ThreeDots from "../components/ThreeDots";
 
 export default function FeedPage() {
+  const queryClient = useQueryClient();
+
+  // Fetch posts
   const { data, isLoading, isError } = useQuery({
     queryKey: ["data"],
     queryFn: getData,
     refetchInterval: 1000,
   });
+
+  // Like post mutation
+  const { mutate: handleLike, isLoading: isLiking } = useMutation({
+    mutationFn: likePost, // Explicitly define the mutation function
+    onSuccess: () => {
+      queryClient.invalidateQueries(["data"]); // Refresh posts after liking
+    },
+  });
+  
 
   if (isLoading) {
     return (
@@ -52,7 +64,7 @@ export default function FeedPage() {
                 </div>
 
                 <div>
-                  <ThreeDots postId={post._id} />
+                  <ThreeDots  />
                 </div>
               </div>
               <p>{post.content}</p>
@@ -74,6 +86,17 @@ export default function FeedPage() {
                   className="w-full h-auto object-cover"
                 />
               )}
+
+              {/* Like Button */}
+              <div className="flex items-center mt-2">
+                <button
+                  onClick={() => handleLike(post._id)}
+                  className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600"
+                >
+                  {isLiking ? "Liking..." : "Like"}
+                </button>
+                <span className="ml-2">{post.likes || 0} Likes</span>
+              </div>
             </div>
           </div>
         ))}
