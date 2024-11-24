@@ -6,7 +6,7 @@ import InputFailed from "../components/InputFailed";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { MdClose } from "react-icons/md";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import Image from "next/image";
 
 const PostPage: React.FC = () => {

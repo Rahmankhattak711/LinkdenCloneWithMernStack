@@ -1,5 +1,5 @@
 "use client";
-import { CldUploadWidget } from "next-cloudinary";
+// import { CldUploadWidget } from "next-cloudinary";
 export default function Home() {
   return (
     <div className="header h-auto w-full flex items-center justify-center">

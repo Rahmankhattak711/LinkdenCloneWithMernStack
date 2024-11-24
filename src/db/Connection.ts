@@ -5,6 +5,10 @@ export const connectDB = async () => {
     const dbConnect = await mongoose.connect(process.env.MONGO_URI!);
     const db = dbConnect.connection;
 
+    db.on("connected", () => {
+      console.log("MongoDB connected successfully");
+    });
+
     return Response.json({
       sucess: true,
       message: "Mongo db connection Success!",
@@ -12,7 +16,7 @@ export const connectDB = async () => {
   } catch (error) {
     return Response.json({
       sucess: false,
-      message: "Mongo db connection Error!",
+      message: `Mongo db connection Error! ${error}`,
     });
   }
 };

@@ -9,7 +9,7 @@ interface Like {
 
 export default function Like({id}: Like) {
     const queryClient = useQueryClient();
-  const { mutate: handleLikePost, isPending } = useMutation({
+  const { mutate: handleLikePost } = useMutation({
     mutationFn: async (id: string) => await axios.post(`/api/like/${id}`),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["posts"] });

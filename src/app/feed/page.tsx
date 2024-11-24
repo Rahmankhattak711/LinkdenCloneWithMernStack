@@ -1,13 +1,18 @@
 "use client";
 import PostPage from "../post/page";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { getData } from "../utils/api";
 import Loader from "../components/Loader";
 import Image from "next/image";
 import ThreeDots from "../components/ThreeDots";
-import axios from "axios";
-import toast from "react-hot-toast";
 import Like from "../components/Like";
+
+interface Post {
+  _id: string;
+  content: string;
+  image?: string;
+  video?: string;
+}
 
 export default function FeedPage() {
   const { data, isLoading, isError } = useQuery({
@@ -28,14 +33,15 @@ export default function FeedPage() {
     return <h1>Error loading posts.</h1>;
   }
 
-  const posts = data?.data || [];
+  const posts: Post[] = data?.data || [];
+
 
   return (
     <div className="h-auto w-full flex items-center justify-center">
       <div className="flex items-center flex-col justify-between w-[80%] mt-5">
         <PostPage />
 
-        {posts.map((post: any, index: number) => (
+        {posts.map((post: Post, index: number) => (
           <div key={index} className="w-[55%] mt-4">
             <div className="rounded-md bg-[#1B1F23] px-6 py-3 flex flex-col gap-4">
               <div className="flex items-center justify-between">
@@ -58,9 +64,11 @@ export default function FeedPage() {
               </div>
               <p>{post.content}</p>
               {post.image && (
-                <img
+                <Image
                   src={post.image}
                   alt="post"
+                  height={500}
+                  width={500}
                   className="w-full h-auto object-cover"
                 />
               )}

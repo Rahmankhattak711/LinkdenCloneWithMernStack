@@ -31,7 +31,7 @@ export async function POST(req: NextRequest) {
   }
 }
 
-export async function GET(req: NextRequest) {
+export async function GET() {
   await connectDB();
 
   try {
@@ -77,6 +77,7 @@ export async function DELETE(req: NextRequest) {
       { status: 200 }
     );
   } catch (error) {
+    console.error('Error deleting post:', error);
     return NextResponse.json(
       { success: false, message: 'Post deletion failed!' },
       { status: 500 }

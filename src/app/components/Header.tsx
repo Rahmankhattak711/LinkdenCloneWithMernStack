@@ -4,7 +4,6 @@ import React from "react";
 import { FaHome } from "react-icons/fa";
 import { IoPeopleSharp, IoNotifications, IoBagRemove } from "react-icons/io5";
 import { RiMessage2Fill } from "react-icons/ri";
-import { CgProfile } from "react-icons/cg";
 import Link from "next/link";
 import Profile from "../profile/page";
 
@@ -46,7 +45,10 @@ export function Header() {
             className="flex flex-col justify-center items-center"
           >
             {/* <CgProfile className="text-lg cursor-pointer" /> */}
-            <img
+            <Image
+              alt="user"
+              height={50}
+              width={50}
               src="/images/user.png" className="text-lg cursor-pointer w-5 "/>
             <h5 className="cursor-pointer">Profile</h5>
             {hideProfile && <Profile />}

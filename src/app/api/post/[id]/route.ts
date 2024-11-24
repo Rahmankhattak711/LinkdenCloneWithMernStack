@@ -29,6 +29,7 @@ export async function DELETE(req: NextRequest) {
       { status: 200 }
     );
   } catch (error) {
+    console.error('Error deleting post:', error);
     return NextResponse.json(
       { success: false, message: 'Post deletion failed!'},
       { status: 500 }
