@@ -23,9 +23,8 @@ export async function POST(req: NextRequest) {
       { status: 201 }
     );
   } catch (error) {
-    console.error("Error creating post:", error);
     return NextResponse.json(
-      { success: false, message: "Post creation failed!" },
+      { success: false, message: `Post creation failed! ${error}` },
       { status: 500 }
     );
   }
@@ -42,9 +41,8 @@ export async function GET() {
       { status: 200 }
     );
   } catch (error) {
-    console.error("Error fetching posts:", error);
     return NextResponse.json(
-      { success: false, message: "Failed to fetch posts!" },
+      { success: false, message: `Failed to fetch posts! ${error}` },
       { status: 500 }
     );
   }
@@ -77,9 +75,8 @@ export async function DELETE(req: NextRequest) {
       { status: 200 }
     );
   } catch (error) {
-    console.error('Error deleting post:', error);
     return NextResponse.json(
-      { success: false, message: 'Post deletion failed!' },
+      { success: false, message: `Post deletion failed! ${error}` },
       { status: 500 }
     );
   }

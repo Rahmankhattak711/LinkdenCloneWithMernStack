@@ -41,7 +41,7 @@ export async function POST(req: NextRequest) {
       userId: newUser._id, 
     });
   } catch (error) {
-    console.error("Error creating user:", error);
+    console.log("Error creating user:", error);
     return NextResponse.json({
       success: false,
       message: "Internal Server Error!",

@@ -5,16 +5,13 @@ interface PostInterface extends Document {
   image?: string;
   video?: string;
   user: mongoose.Schema.Types.ObjectId; 
-  tags?: string[];
 }
 
 const postSchema: Schema<PostInterface> = new mongoose.Schema(
   {
     content: {
       type: String,
-      required: true,
-      minlength: 10,  
-      maxlength: 1000, 
+      required: true, 
     },
     image: {
       type: String,
@@ -27,11 +24,6 @@ const postSchema: Schema<PostInterface> = new mongoose.Schema(
     user: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User',
-      required: true,
-    },
-    tags: {
-      type: [String], 
-      required: false,
     },
   },
   { timestamps: true }
