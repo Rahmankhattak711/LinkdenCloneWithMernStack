@@ -20,23 +20,23 @@ export function Header() {
           <Image src={"/images/logo.png"} alt="logo" height={50} width={50} />
         </div>
         <div className="flex gap-8 text-sm">
-          <Link className="flex flex-col justify-center items-center " href="/feed">
+          <Link className="flex flex-col justify-center items-center " href="/">
             <FaHome className="text-lg" />
             <h5>Home</h5>
           </Link>
-          <Link className="flex flex-col justify-center items-center " href="/">
+          <Link className="flex flex-col justify-center items-center " href="/myNetwork">
             <IoPeopleSharp className="text-lg" />
             <h5>My Network</h5>
           </Link>
-          <Link className="flex flex-col justify-center items-center " href="/">
+          <Link className="flex flex-col justify-center items-center " href="/job">
             <IoBagRemove className="text-lg" />
             <h5>Job</h5>
           </Link>
-          <Link className="flex flex-col justify-center items-center " href="/">
+          <Link className="flex flex-col justify-center items-center " href="/messages">
             <RiMessage2Fill className="text-lg" />
             <h5>Messages</h5>
           </Link>
-          <Link className="flex flex-col justify-center items-center " href="/">
+          <Link className="flex flex-col justify-center items-center " href="/notification">
             <IoNotifications className="text-lg" />
             <h5>Notifications</h5>
           </Link>
