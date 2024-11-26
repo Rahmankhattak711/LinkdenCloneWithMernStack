@@ -5,6 +5,7 @@ import Loader from "./components/Loader";
 import { getData } from "./utils/api";
 import PostPage from "./post/page";
 import ThreeDots from "./components/ThreeDots";
+import CommentBox from "./components/CommentBox";
 
 interface Post {
   _id: string;
@@ -82,6 +83,8 @@ export default function FeedPage() {
                   className="w-full h-auto object-cover"
                 />
               )}
+
+              <CommentBox/>
             </div>
           </div>
         ))}
