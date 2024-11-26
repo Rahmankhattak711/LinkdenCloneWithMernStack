@@ -6,7 +6,6 @@ import axios from "axios";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import React from "react";
 import toast from "react-hot-toast";
-import { validationSchema } from "./validations/Validation";
 
 interface CommentFormValues {
   comment: string;
@@ -31,7 +30,6 @@ export default function CommentBox() {
     <div className="w-full">
       <Formik
         initialValues={{ comment: "" }}
-        validationSchema={validationSchema}
         onSubmit={(values, { resetForm }) => {
           handleComment(values);
           resetForm();
@@ -54,7 +52,7 @@ export default function CommentBox() {
             <Button
               type="submit"
               size="lg"
-              variant="primary"
+              variant="secondary"
               disabled={isSubmitting}
             >
               {isSubmitting ? "Posting..." : "Comment"}

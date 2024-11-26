@@ -6,7 +6,7 @@ export async function POST(req: NextRequest) {
   await connectDB();
 
   try {
-    const { comment, postId } = await req.json();
+    const { comment } = await req.json();
 
     if (!comment) {
       return NextResponse.json(
