@@ -6,9 +6,10 @@ import { IoPeopleSharp, IoNotifications, IoBagRemove } from "react-icons/io5";
 import { RiMessage2Fill } from "react-icons/ri";
 import Link from "next/link";
 import Profile from "../profile/page";
+import GetUserImage from "./GetUserImage";
 
 export function Header() {
-  const [hideProfile, setHideProfile] = React.useState(false); 
+  const [hideProfile, setHideProfile] = React.useState(false);
 
   const hideProfileHandler = () => {
     setHideProfile(!hideProfile);
@@ -24,19 +25,31 @@ export function Header() {
             <FaHome className="text-lg" />
             <h5>Home</h5>
           </Link>
-          <Link className="flex flex-col justify-center items-center " href="/myNetwork">
+          <Link
+            className="flex flex-col justify-center items-center "
+            href="/myNetwork"
+          >
             <IoPeopleSharp className="text-lg" />
             <h5>My Network</h5>
           </Link>
-          <Link className="flex flex-col justify-center items-center " href="/job">
+          <Link
+            className="flex flex-col justify-center items-center "
+            href="/job"
+          >
             <IoBagRemove className="text-lg" />
             <h5>Job</h5>
           </Link>
-          <Link className="flex flex-col justify-center items-center " href="/messages">
+          <Link
+            className="flex flex-col justify-center items-center "
+            href="/messages"
+          >
             <RiMessage2Fill className="text-lg" />
             <h5>Messages</h5>
           </Link>
-          <Link className="flex flex-col justify-center items-center " href="/notification">
+          <Link
+            className="flex flex-col justify-center items-center "
+            href="/notification"
+          >
             <IoNotifications className="text-lg" />
             <h5>Notifications</h5>
           </Link>
@@ -44,12 +57,7 @@ export function Header() {
             onClick={hideProfileHandler}
             className="flex flex-col justify-center items-center"
           >
-            {/* <CgProfile className="text-lg cursor-pointer" /> */}
-            <Image
-              alt="user"
-              height={50}
-              width={50}
-              src="/images/user.png" className="text-lg cursor-pointer w-5 "/>
+            <GetUserImage />
             <h5 className="cursor-pointer">Profile</h5>
             {hideProfile && <Profile />}
           </div>

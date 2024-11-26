@@ -7,7 +7,8 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { MdClose } from "react-icons/md";
 import { useMutation } from "@tanstack/react-query";
-import Image from "next/image";
+import UserInfo from "../components/UserInfo";
+import GetUserImage from "../components/GetUserImage";
 
 const PostPage: React.FC = () => {
   const [isPostOpen, setIsPostOpen] = useState<boolean>(false);
@@ -62,13 +63,7 @@ const PostPage: React.FC = () => {
   return (
     <div className="relative  w-full flex justify-center items-center">
       <div className="w-[55%] bg-[#1B1F23] flex gap-4">
-        <Image
-          src="/images/user.png"
-          alt="user"
-          height={50}
-          width={50}
-          className="rounded-full border-[1px] h-[55px] w-[55px]"
-        />
+        <GetUserImage className="rounded-full w-[70px]" />
         <InputFailed
           onClick={togglePostInput}
           type="text"
@@ -89,13 +84,7 @@ const PostPage: React.FC = () => {
                 onSubmit={handleSubmit}
                 className="w-[50%] h-auto bg-black border-gray-600 border-[1px] rounded-md relative p-5 "
               >
-                <Image
-                  src="/images/user.png"
-                  alt="user"
-                  height={50}
-                  width={50}
-                  className="rounded-full border-[1px] h-[55px] w-[55px]"
-                />
+                <UserInfo />
                 <textarea
                   value={text}
                   onChange={(e) => setText(e.target.value)}

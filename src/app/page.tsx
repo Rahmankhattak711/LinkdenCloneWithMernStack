@@ -2,10 +2,11 @@
 import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
 import Loader from "./components/Loader";
-import { getData } from "./utils/api";
+import { getData} from "./utils/api";
 import PostPage from "./post/page";
 import ThreeDots from "./components/ThreeDots";
 import CommentBox from "./components/CommentBox";
+import UserInfo from "./components/UserInfo";
 
 interface Post {
   _id: string;
@@ -41,23 +42,11 @@ export default function FeedPage() {
       <div className="flex items-center flex-col justify-between w-[80%] mt-5">
         <PostPage />
 
-        {posts.map((post: Post, index: number) => (
+        {posts.map((post: Post, index: number,) => (
           <div key={index} className="w-[55%] mt-4">
             <div className="rounded-md bg-[#1B1F23] px-6 py-3 flex flex-col gap-4">
               <div className="flex items-center justify-between">
-                <div className="flex gap-4 items-center">
-                  <Image
-                    src="/images/user.png"
-                    alt="user"
-                    height={50}
-                    width={50}
-                    className="rounded-full border-[1px] h-[50px] w-[50px]"
-                  />
-                  <span>
-                    <h1>Rahman Ullah</h1>
-                    <p>Full Stack Developer</p>
-                  </span>
-                </div>
+                <UserInfo/>
                 <div>
                   <ThreeDots id={post._id} />
                 </div>
@@ -85,6 +74,7 @@ export default function FeedPage() {
               )}
 
               <CommentBox/>
+              
             </div>
           </div>
         ))}

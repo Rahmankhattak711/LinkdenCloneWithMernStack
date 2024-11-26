@@ -7,7 +7,16 @@ export async function POST(req: NextRequest) {
   connectDB();
 
   try {
-    const { name, email, password } = await req.json();
+    const {
+      name,
+      email,
+      password,
+      userImage,
+      jobTitle,
+      posts,
+      comments,
+      verified,
+    } = await req.json();
 
     if (!name || !email || !password) {
       return NextResponse.json({
@@ -31,6 +40,11 @@ export async function POST(req: NextRequest) {
       name,
       email,
       password: hashedPassword,
+      userImage,
+      jobTitle,
+      posts,
+      comments,
+      verified,
     });
 
     await newUser.save();
@@ -38,10 +52,24 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({
       success: true,
       message: "User created successfully!",
-      userId: newUser._id, 
+      userId: newUser._id,
     });
   } catch (error) {
     console.log("Error creating user:", error);
+    return NextResponse.json({
+      success: false,
+      message: "Internal Server Error!",
+    });
+  }
+}
+
+export async function GET() {
+  connectDB();
+  try {
+    const users = await User.find();
+    return NextResponse.json({ success: true, data: users });
+  } catch (error) {
+    console.log("Error fetching users:", error);
     return NextResponse.json({
       success: false,
       message: "Internal Server Error!",
