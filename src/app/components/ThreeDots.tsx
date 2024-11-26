@@ -3,7 +3,6 @@ import { BsThreeDots } from "react-icons/bs";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import toast from "react-hot-toast";
-import Loader from "./Loader";
 
 interface ThreeDotsProps {
   id: string;
@@ -17,7 +16,7 @@ export default function ThreeDots({ id }: ThreeDotsProps) {
     setDotShow(!dotShow);
   };
 
-  const { mutate: handleDeletePost, isPending } = useMutation({
+  const { mutate: handleDeletePost } = useMutation({
     mutationFn: async () => await axios.delete(`/api/post/${id}`),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["posts"] });
@@ -27,14 +26,6 @@ export default function ThreeDots({ id }: ThreeDotsProps) {
       setDotShow(false);
     },
   });
-
-  if(isPending){
-    return (
-      <h1>
-        <Loader/>
-      </h1>
-    )
-  }
 
   return (
     <div className="relative">
