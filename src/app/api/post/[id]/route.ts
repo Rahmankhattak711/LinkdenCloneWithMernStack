@@ -1,5 +1,5 @@
 import { connectDB } from '@/db/Connection';
-import Post from '@/models/PostModel';
+import { Post } from '@/models/User';
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function DELETE(req: NextRequest) {

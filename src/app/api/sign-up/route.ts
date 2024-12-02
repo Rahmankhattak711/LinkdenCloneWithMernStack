@@ -1,7 +1,7 @@
 import { connectDB } from "@/db/Connection";
-import User from "@/models/UserModel";
 import { NextResponse, NextRequest } from "next/server";
 import bcrypt from "bcryptjs";
+import { User } from "@/models/User";
 
 export async function POST(req: NextRequest) {
   connectDB();
@@ -13,8 +13,6 @@ export async function POST(req: NextRequest) {
       password,
       userImage,
       jobTitle,
-      posts,
-      comments,
       verified,
     } = await req.json();
 
@@ -42,8 +40,6 @@ export async function POST(req: NextRequest) {
       password: hashedPassword,
       userImage,
       jobTitle,
-      posts,
-      comments,
       verified,
     });
 
@@ -64,15 +60,25 @@ export async function POST(req: NextRequest) {
 }
 
 export async function GET() {
-  connectDB();
+  await connectDB(); 
   try {
-    const users = await User.find();
-    return NextResponse.json({ success: true, data: users });
+    
+    const users = await User.find().populate("posts", "content image video").populate("comments", "comment").exec();
+    
+
+    console.log("Fetched users:", users);
+    return NextResponse.json({
+      success: true,
+      message: "Get users successfully!",
+      data: users,
+    });
   } catch (error) {
-    console.log("Error fetching users:", error);
+    console.error("Error fetching users:", error);
     return NextResponse.json({
       success: false,
       message: "Internal Server Error!",
     });
   }
 }
+
+

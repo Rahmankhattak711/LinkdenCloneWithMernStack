@@ -42,6 +42,10 @@ export default function Profile() {
             View Profile
           </Button>
         </Link>
+
+        <Button size="xs" as="a" variant="outline">
+            Logout
+          </Button>
       </div>
     </div>
   );
