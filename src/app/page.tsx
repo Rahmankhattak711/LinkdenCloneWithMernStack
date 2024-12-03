@@ -39,11 +39,11 @@ export default function FeedPage() {
 
   return (
     <div className="h-auto w-full flex items-center justify-center">
-      <div className="flex items-center flex-col justify-between w-[80%] mt-5">
+      <div className="flex items-center flex-col justify-between w-[90%] max-w-[700px] mt-5">
         <PostPage />
 
         {posts.map((post: Post, index: number,) => (
-          <div key={index} className="w-[55%] mt-4">
+          <div key={index} className="w-[90%] max-w-[700px] mt-4">
             <div className="rounded-md bg-[#1B1F23] px-6 py-3 flex flex-col gap-4">
               <div className="flex items-center justify-between">
                 <UserInfo/>

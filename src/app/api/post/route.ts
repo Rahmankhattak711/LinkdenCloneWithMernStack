@@ -34,12 +34,12 @@ export async function GET() {
   await connectDB();
 
   try {
-    const posts = await Post.find().sort({ createdAt: -1 });
+    const posts = await Post.find()
+      .sort({ createdAt: -1 })
+      .populate("user")
+      .exec();
 
-    return NextResponse.json(
-      { success: true, data: posts },
-      { status: 200 }
-    );
+    return NextResponse.json({ success: true, data: posts }, { status: 200 });
   } catch (error) {
     return NextResponse.json(
       { success: false, message: `Failed to fetch posts! ${error}` },
@@ -52,11 +52,11 @@ export async function DELETE(req: NextRequest) {
   await connectDB();
 
   try {
-    const id = req.nextUrl.pathname.split('/').pop();
+    const id = req.nextUrl.pathname.split("/").pop();
 
     if (!id) {
       return NextResponse.json(
-        { success: false, message: 'Post ID is required!' },
+        { success: false, message: "Post ID is required!" },
         { status: 400 }
       );
     }
@@ -65,13 +65,13 @@ export async function DELETE(req: NextRequest) {
 
     if (!deletedPost) {
       return NextResponse.json(
-        { success: false, message: 'Post not found!' },
+        { success: false, message: "Post not found!" },
         { status: 404 }
       );
     }
 
     return NextResponse.json(
-      { success: true, message: 'Post deleted successfully!' },
+      { success: true, message: "Post deleted successfully!" },
       { status: 200 }
     );
   } catch (error) {

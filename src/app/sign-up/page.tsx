@@ -7,6 +7,7 @@ import toast from "react-hot-toast";
 import InputFailed from "../components/InputFailed";
 import { Button } from "../components/buttons/Button";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 interface SignUpFormValues {
   name: string;
@@ -17,6 +18,7 @@ interface SignUpFormValues {
 }
 
 export default function SignUp() {
+  const router = useRouter()
   const queryClient = useQueryClient();
 
   const { mutate: handleComment } = useMutation<void, Error, SignUpFormValues>({
@@ -32,6 +34,7 @@ export default function SignUp() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["posts"] });
       toast.success("User Sign Up successfully!");
+      router.push("/sign-in")
     },
   });
 

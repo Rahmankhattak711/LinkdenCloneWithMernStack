@@ -2,9 +2,10 @@ import { connectDB } from "@/db/Connection";
 import { User } from "@/models/User";
 import { NextRequest, NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
 
 export async function POST(req: NextRequest) {
-  connectDB();
+  await connectDB();
 
   try {
     const { email, password } = await req.json();
@@ -19,8 +20,7 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const user = await User.findOne({ email, password });
-
+    const user = await User.findOne({ email });
     if (!user) {
       return NextResponse.json(
         {
@@ -31,9 +31,8 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const hashedPassword = await bcrypt.compare(password, user.password);
-
-    if (!hashedPassword) {
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+    if (!isPasswordValid) {
       return NextResponse.json(
         {
           success: false,
@@ -43,21 +42,35 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    return NextResponse.json(
+    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET!, {
+      expiresIn: "1d",
+    });
+
+    const cookieOptions = {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "strict" as const, 
+      maxAge: 24 * 60 * 60 * 1000, 
+    };
+
+    const response = NextResponse.json(
       {
         success: true,
-        message: "Login successfully!",
-        data: user,
+        message: "Login successful!",
+        token: token, 
       },
       { status: 200 }
     );
+
+    response.cookies.set("session_token", token, cookieOptions);
+
+    return response;
+
   } catch (error) {
-    console.log("Error logging in:", error);
-    
     return NextResponse.json(
       {
         success: false,
-        message: "Internal Server Error!",
+        message: `Internal Server Error! ${error}`,
       },
       { status: 500 }
     );

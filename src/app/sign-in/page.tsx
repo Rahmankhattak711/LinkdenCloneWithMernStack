@@ -30,6 +30,9 @@ export default function SignIn() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["posts"] });
     },
+    onError: (error) => {
+      toast.error(error.message);
+    },
   });
 
   return (
@@ -63,7 +66,7 @@ export default function SignIn() {
 
             <div>
               <Link href="/sign-up">
-                Your account does not exist please{" "}
+                Your account does not exist please
                 <span className="text-blue-400 font-extrabold">Sign Up</span>
               </Link>
             </div>

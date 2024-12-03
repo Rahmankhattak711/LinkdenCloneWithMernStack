@@ -62,7 +62,7 @@ const PostPage: React.FC = () => {
 
   return (
     <div className="relative  w-full flex justify-center items-center">
-      <div className="w-[55%] bg-[#1B1F23] flex gap-4">
+      <div className= "w-[90%] max-w-[700px] bg-[#1B1F23] flex gap-4">
         <GetUserImage className="rounded-full w-[70px]" />
         <InputFailed
           onClick={togglePostInput}
@@ -71,7 +71,7 @@ const PostPage: React.FC = () => {
         />
 
         {isPostOpen && (
-          <>
+          <div>
             {/* Backdrop */}
             <div
               className="fixed inset-0 bg-black opacity-40"
@@ -82,7 +82,7 @@ const PostPage: React.FC = () => {
             <div className="fixed inset-0 flex justify-center items-start top-10 z-50">
               <form
                 onSubmit={handleSubmit}
-                className="w-[50%] h-auto bg-black border-gray-600 border-[1px] rounded-md relative p-5 "
+                className="w-[90%] max-w-[700px] h-auto bg-black border-gray-600 border-[1px] rounded-md relative p-5 "
               >
                 <UserInfo />
                 <textarea
@@ -135,7 +135,7 @@ const PostPage: React.FC = () => {
                 </div>
               </form>
             </div>
-          </>
+          </div>
         )}
       </div>
     </div>
