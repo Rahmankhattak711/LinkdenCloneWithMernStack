@@ -22,6 +22,7 @@ export default function FeedPage() {
     refetchInterval: 1000,
   });
 
+
   if (isLoading) {
     return (
       <h1>
@@ -35,7 +36,6 @@ export default function FeedPage() {
   }
 
   const posts: Post[] = data?.data || [];
-
 
   return (
     <div className="h-auto w-full flex items-center justify-center">
@@ -74,7 +74,7 @@ export default function FeedPage() {
               )}
 
               <CommentBox/>
-              
+
             </div>
           </div>
         ))}
